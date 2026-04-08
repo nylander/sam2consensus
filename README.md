@@ -1,36 +1,21 @@
 # sam2consensus
-Get the consensus sequences for short sequencing reads mapped to a reference. Version 2.0
 
-## _Brief description_
-The program takes as input a SAM file (.sam or .sam.gz) resulting from mapping short reads to a reference (the reference
-sequences can correspond to separate genes for example), then it calculates the consensus sequence from the aligned
-reads alone. If you have BAM files you will need to convert them first with `samtools`. A single or multiple consensus thresholds can be specified, the program also adds insertions, if many long
-long insertions are expected, we recommend to perform indel ralignment before for optimal results. The consensus method
-is the one used by Geneious and described in detail in http://assets.geneious.com/manual/8.1/GeneiousManualse41.html
+Get the consensus sequences for short sequencing reads mapped to a reference.
 
-Regions with no coverage are filled with -s (or a different character if specified). Input SAM files don't need to be
-sorted. Original reference FASTAs are not necessary since the consensus is reference-free.
 
-It will produce a FASTA file per reference containing as many sequences as thresholds were specified.
+## sam2consensus
 
-## _Usage_
-Just type `python sam2consensus.py -h` to show the help of the program:
-```
-usage: sam2consensus.py [-h] -i FILENAME [-c THRESHOLDS] [-n N] [-o OUTFOLDER]
-                        [-p PREFIX] [-m MIN_DEPTH] [-f FILL] [-d MAXDEL]
-
-+------------------------------------------------------------------+
-| sam2consensus.py: extract the consensus sequence from a SAM file |
-+------------------------------------------------------------------+
+### _Brief description_
 
 The program takes as input a SAM file (.sam or .sam.gz) resulting from mapping
 short reads to a reference (the reference sequences can correspond to separate
 genes for example), then it calculates the consensus sequence from the aligned
-reads alone. A single or multiple consensus thresholds can be specified, the
-program also adds insertions, if many long insertions are expected, we recommend
-to perform indel ralignment before for optimal results. The consensus method is
-the one used by Geneious and described in detail in
-http://assets.geneious.com/manual/8.1/GeneiousManualse41.html
+reads alone. If you have BAM files you will need to convert them first with
+`samtools`. A single or multiple consensus thresholds can be specified, the
+program also adds insertions, if many long insertions are expected, we
+recommend to perform indel ralignment before for optimal results. The consensus
+method is the one used by Geneious and described in detail in
+<http://assets.geneious.com/manual/8.1/GeneiousManualse41.html>
 
 Regions with no coverage are filled with -s (or a different character if
 specified). Input SAM files don't need to be sorted. Original reference FASTAs
@@ -39,6 +24,36 @@ are not necessary since the consensus is reference-free.
 It will produce a FASTA file per reference containing as many sequences as
 thresholds were specified.
 
+### _Usage_
+
+Just type `python sam2consensus.py -h` to show the help of the program:
+
+```
+usage: sam2consensus.py [-h] -i FILENAME [-c THRESHOLDS] [-n N] [-o OUTFOLDER]
+                        [-p PREFIX] [-m MIN_DEPTH] [-f FILL] [-d MAXDEL]
+
++------------------------------------------------------------------+
+| sam2consensus.py: extract the consensus sequence from a SAM file |
++------------------------------------------------------------------+
+```
+
+The program takes as input a SAM file (.sam or .sam.gz) resulting from mapping
+short reads to a reference (the reference sequences can correspond to separate
+genes for example), then it calculates the consensus sequence from the aligned
+reads alone. A single or multiple consensus thresholds can be specified, the
+program also adds insertions, if many long insertions are expected, we recommend
+to perform indel realignment before for optimal results. The consensus method is
+the one used by Geneious and described in detail in
+<http://assets.geneious.com/manual/8.1/GeneiousManualse41.html>
+
+Regions with no coverage are filled with -s (or a different character if
+specified). Input SAM files don't need to be sorted. Original reference FASTAs
+are not necessary since the consensus is reference-free.
+
+It will produce a FASTA file per reference containing as many sequences as
+thresholds were specified.
+
+```
 optional arguments:
   -h, --help            show this help message and exit
   -i FILENAME, --input FILENAME
@@ -63,29 +78,67 @@ optional arguments:
                         Ignore deletions longer than this value, default=150
 ```
 
-## _Examples_
-In the following examples, if you added the script to the `PATH` you can omit `python` from the commands.
+### _Examples_
+
+In the following examples, if you added the script to the `PATH` you can omit
+`python` from the commands.
 
 _Example 1:_ Using the default consensus threshold of 0.25:
+
 ```bash
 python sam2consensus.py -i myfile.sam
 ```
 
-_Example 2:_ Using multiple consensus thresholds of 0.25, 0.50, and 0.75 and specifying an output folder:
+_Example 2:_ Using multiple consensus thresholds of 0.25, 0.50, and 0.75 and
+specifying an output folder:
+
 ```bash
 python sam2consensus.py -i myfile.sam -c 0.25,0.50,0.75 -o results
 ```
 
-_Example 3:_ Using a custom consensus threshold of 0.75 and changing padding character for uncovered regions to "N":
+_Example 3:_ Using a custom consensus threshold of 0.75 and changing padding
+character for uncovered regions to "N":
+
 ```bash
 python sam2consensus.py -i myfile.sam -c 0.75 -f N
 ```
 
-_Example 4:_ Specifying a prefix "sample1" and increasing minimum mapping depth to 10:
+_Example 4:_ Specifying a prefix "sample1" and increasing minimum mapping depth
+to 10:
+
 ```bash
 python sam2consensus.py -i myfile.sam -pre sample1 -m 10
 ```
 
-## _Credits_
+### _Credits_
+
 - Code: [Edgardo M. Ortiz](mailto:e.ortiz.v@gmail.com)
 - Data and testing: [Deise J. P. Gonçalves](mailto:deisejpg@gmail.com)
+
+
+## bwa2consensus.py
+
+Map fastq sequences to reference using bwa mem, calculate consensus sequence
+using samtools consensus.
+
+```
+usage: bwa2consensus.py [-h] --fastq1 FASTQ1 --fastq2 FASTQ2 --ref REF [--outdir OUTDIR]
+                        [--prefix PREFIX] [--threads THREADS]
+
+Map fastq sequences to reference using bwa mem, calculate consensus sequence using samtools consensus.
+
+options:
+  -h, --help         show this help message and exit
+  --fastq1 FASTQ1    Fastq file with forward reads
+  --fastq2 FASTQ2    Fastq file with reverse reads
+  --ref REF          Reference fasta file
+  --outdir OUTDIR    Output directory
+  --prefix PREFIX    Prefix for output files
+  --threads THREADS  Number of threads to use
+
+```
+
+## See also
+
+- <https://github.com/vbsreenu/Sam2Consensus>
+
