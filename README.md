@@ -2,7 +2,6 @@
 
 Get the consensus sequences for short sequencing reads mapped to a reference.
 
-
 ## sam2consensus
 
 ### _Brief description_
@@ -115,11 +114,16 @@ python sam2consensus.py -i myfile.sam -pre sample1 -m 10
 - Code: [Edgardo M. Ortiz](mailto:e.ortiz.v@gmail.com)
 - Data and testing: [Deise J. P. Gonçalves](mailto:deisejpg@gmail.com)
 
+### _License_
+
+`sam2consensus.py` is under GPL v.3 [LICENSE](LICENSE)
+
+---
 
 ## bwa2consensus.py
 
 Map fastq sequences to reference using bwa mem, calculate consensus sequence
-using samtools consensus.
+using samtools consensus and/or bcftools.
 
 ```
 usage: bwa2consensus.py [-h] --fastq1 FASTQ1 --fastq2 FASTQ2 --ref REF [--outdir OUTDIR]
